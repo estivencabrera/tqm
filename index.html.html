@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nahara JAJAJAJ</title>
+    <script>alert("te quiero mucho y tambien te.....")</script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Contenedor de la carta */
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        
+        .card {
+            width: 340px;
+            height: 260px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+    
+        .card.open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            height: 390px; 
+        }
+
+        .card h2 {
+            color: #ff477e;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+
+        .card p {
+            color: #4a4a4a;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+       
+        .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background-color: #ff477e;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .btn:hover {
+            background-color: #ff7096;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(255, 71, 126, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+       
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 2.5s ease-out forwards;
+            bottom: 20%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.2) rotate(var(--rot-dir));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="card" id="myCard">
+            <h2>Hola mi amor</h2>
+            <p>Mi amor lindo, cada momento que paso contigo siempre es lo mejor. Me enamoro de tu sonrisa y tus ojos; son cosas que quizás digo muy seguido, pero es mi forma de quererte, cariño. Paso las horas esperando verte, cariño. Si tú supieras lo que yo sufro por no verte, por esa forma que yo tengo de quererte... Siempre quiero estar contigo porque el tiempo es frágil y no quiero perder un solo instante sin demostrarte cuánto te..... </p>
+       <h5>Att adolfo </h5>
+        </div>
+        
+        <button class="btn" id="toggleBtn">Abrir Carta</button>
+    </div>
+
+    <script>
+        const card = document.getElementById('myCard');
+        const btn = document.getElementById('toggleBtn');
+        
+
+        const emojiList = ['❤️', '💓', '💓', '💓', '💓', '💓', '💓'];
+
+        btn.addEventListener('click', () => {
+            const isOpen = card.classList.contains('open');
+
+            if (!isOpen) {
+                card.classList.add('open');
+                btn.textContent = 'Cerrar Carta';
+                btn.style.backgroundColor = '#4a4a4a';
+                btn.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                
+            
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(createEmoji, i * 60); 
+                }
+            } else {
+                card.classList.remove('open');
+                btn.textContent = 'Abrir Carta';
+                btn.style.backgroundColor = '#ff477e';
+                btn.style.boxShadow = '0 5px 15px rgba(255, 71, 126, 0.4)';
+            }
+        });
+
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            
+        
+            emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            
+         
+            const randomRotation = (Math.random() * 360 - 180) + 'deg';
+
+            emoji.style.setProperty('--rot-dir', randomRotation);
+            
+           
+            emoji.style.fontSize = Math.random() * 1.5 + 1.5 + 'rem';
+            emoji.style.animationDuration = Math.random() * 1.5 + 1.5 + 's';
+
+            document.body.appendChild(emoji);
+
+            
+            emoji.addEventListener('animationend', () => {
+                emoji.remove();
+            });
+        }
+    </script>
+</body>
+</html>
